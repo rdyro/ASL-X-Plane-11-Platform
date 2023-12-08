@@ -1,0 +1,16 @@
+aslxplane/data/resnet50_model.pt filter=lfs diff=lfs merge=lfs -text
+media filter=lfs diff=lfs merge=lfs -text
+media/vision_diagram_obs_opencv.png filter=lfs diff=lfs merge=lfs -text
+media/vision_diagram_obs_opencv.svg filter=lfs diff=lfs merge=lfs -text
+media/vision_estimation.gif filter=lfs diff=lfs merge=lfs -text
+media/weather_landing.gif filter=lfs diff=lfs merge=lfs -text
+media/main_video.gif filter=lfs diff=lfs merge=lfs -text
+aslxplane/data/dynamics_linear.json filter=lfs diff=lfs merge=lfs -text
+aslxplane/data/XPlaneConnect filter=lfs diff=lfs merge=lfs -text
+aslxplane/data/XPlaneConnect/mac.xpl filter=lfs diff=lfs merge=lfs -text
+aslxplane/data/XPlaneConnect/win.xpl filter=lfs diff=lfs merge=lfs -text
+aslxplane/data/XPlaneConnect/64 filter=lfs diff=lfs merge=lfs -text
+aslxplane/data/XPlaneConnect/license.pdf filter=lfs diff=lfs merge=lfs -text
+aslxplane/data/XPlaneConnect/lin.xpl filter=lfs diff=lfs merge=lfs -text
+aslxplane/data/XPlaneConnect/64/lin.xpl filter=lfs diff=lfs merge=lfs -text
+aslxplane/data/XPlaneConnect/64/win.xpl filter=lfs diff=lfs merge=lfs -text

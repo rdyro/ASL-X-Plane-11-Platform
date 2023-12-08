@@ -1,5 +1,5 @@
 import numpy as np
-import aslxplane.control.controllers as controllers
+import aslxplane.ground_control.controllers as controllers
 
 class XPlaneController(controllers.Controller):
 

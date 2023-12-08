@@ -5,7 +5,7 @@ import tqdm
 import wandb
 import matplotlib.pyplot as plt
 from aslxplane.simulation.xplane_bridge import XPlaneBridge
-from aslxplane.control.xplanecontroller import XPlaneController, SinusoidController
+from aslxplane.ground_control.xplanecontroller import XPlaneController, SinusoidController
 from aslxplane.perception.estimators import TaxiNet, GroundTruthEstimator
 from aslxplane.perception.monitors import AutoEncoderMonitor
 from aslxplane.simulation.data_recorder import DataRecorder

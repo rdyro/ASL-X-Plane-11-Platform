@@ -1,3 +1,183 @@
+# ASL X-Plane 11 Test Platform
+
+Based on the popular X-Plane 11 a photo-realistic aircraft simulator with accurate physics. 
+
+We present a Python-based simulation platform to test and benchmark the
+performance of perception and control algorithms on challenging control,
+learning-based control and out-of-distribution control real-world problems in
+flight.
+
+This code build on the plugin 
+[NASA-ULI-Xplane repo](https://github.com/StanfordASL/NASA_ULI_Xplane_Simulator/tree/main). X-Plane 11 is . 
+
+In our own work, we use it to test on 
+  - vision-based autonomous taxiing
+  - autonomous landing
+
+<p align="center">
+<img src="media/main_video.gif" style="width: 100%;max-width:900px"/>
+</p>
+
+# Quickstart
+
+Running experiments often requires writing bespoke code. We do not attempt to
+provide a one-size-fits-all solution. Instead, we suggest you take a look at:
+- [experiments/landing_with_ground_truth.py](experiments/landing_with_ground_truth.py)
+- [experiments/evaluate_vision.py](experiments/evaluate_vision.py) 
+  - you need to download the model checkpoint via `$ git lfs pull`
+
+We think of the `experiments` folder as the `examples` folder in other projects.
+
+Our main landing controller is an LQR controller using learned, partially-linear dynamics (for Cessna Skyhawk).
+
+We encourage you to copy and modify [aslxplane/flight_control/lqr_controller.py](aslxplane/flight_control/lqr_controller.py) to make your own controller!
+
+---
+
+# Installation
+
+The intallation requires:
+1. X-Plane 11
+2. OBS installation and setup
+3. install the XPlaneConnect plugin (via [install_plugin.py](install_plugin.py))
+4. this package
+
+### 1. Getting X-Plane 11
+
+Most likely the best place to get X-Plane 11 is from Steam here: [https://store.steampowered.com/app/269950/XPlane_11/](https://store.steampowered.com/app/269950/XPlane_11/)
+
+### 2. Installing OBS
+
+We use OBS to capture the simulator window and expose it as a virtual camera device that can be accessed using OpenCV in Python.
+
+We ask that you:
+- install OBS
+  - either via `apt` (on a debian/ubuntu) system: `$ sudo apt install obs-studio`
+  - or via flatpak: `$ flatpak install flathub com.obsproject.Studio`
+- install the virtual camera module `v4l2loopback-dkms`
+  - on a debian/ubuntu system: `$ sudo apt install v4l2loopback-dkms`
+
+### 2. Configure the recording settings in OBS
+
+1. open OBS
+2. create a new scene called `aslxplane`
+3. add a new source called `X-Plane 11` of type `Window Capture`
+    - select the window of the simulator
+    - uncheck `Capture Cursor`
+4. close OBS
+
+### 3. Installing this package
+
+You need to install the XPlaneConnect plugin. We made a script to do so:
+```bash
+$ python3 install_plugin.py --xplane-dir {/path/to/X-Plane-11-directory}
+```
+
+### 4. Installing this package
+
+Install with `pip`
+```bash
+$ pip install -e . # `-e` for editable
+$ # it'll let you edit the code in place for development
+```
+
+---
+
+# Launching X-Plane 11 and OBS with ease
+
+We provide a launch script that launches X-Plane 11 and OBS and starts the virtual camera. Should either of the programs crash, the script will restart them.
+
+You can do so by running:
+```bash
+$ export XPLANE_EXEC_PATH={/path/to/X-Plane-x86_64}
+$ python3 -m aslxplane # after installing this package
+```
+
+# State and Dynamics
+
+We define the state of the aircraft using the 11-dimensional state vector (skipping side-slip velocity).
+- `x`: position in the North direction (meters)
+- `y`: position in the East direction (meters)
+- `z`: position in the Down direction (meters)
+- `v`: horizontal airspeed (meters/second)
+- `vh`: vertical speed (meters/second)
+- `pitch`: pitch angle (radians)
+- `roll`: roll angle (radians)
+- `yaw`: yaw angle (radians)
+- `dpitch`: pitch rate (radians/second)
+- `droll`: roll rate (radians/second)
+- `dyaw`: yaw rate (radians/second)
+
+X-Plane 11 does not expose the underlying dynamics of the aircraft. Instead, we
+use a learned partially linearized model of the aircraft in
+[aslxplane/flight_control/dynamics.py](aslxplane/flight_control/dynamics.py).
+
+
+# Efficient Vision 
+
+<p align="center">
+<img src="media/vision_diagram_obs_opencv.png" style="width: 100%;max-width:500px"/>
+</p>
+
+In order to offer efficient and hassle free vision-based perception, we need to
+capture the output of the simulator and expose it to the user.
+
+We do this by capturing the window of the simulator using [OBS Studio](https://obsproject.com/) and creating a virtual camera device that can be efficiently accessed using OpenCV in Python.
+
+<p align="center">
+<img src="media/vision_estimation.gif" style="width: 100%;max-width:900px"/>
+</p>
+
+We explore training a model to estimate the position of the aircraft without GPS information from vision in [experiments/evaluate_vision.py](experiments/evaluate_vision.py).
+
+
+# Controlling the Weather
+
+We offer a simplified interface for setting or randomizing the weather. Take a look at
+[aslxplane/simulation/weather.py](aslxplane/simulation/weather.py) for more details.
+
+<p align="center">
+<img src="media/weather_landing.gif" style="width: 100%;max-width:900px"/>
+</p>
+
+---
+
+<!-- html vertical space -->
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p align="center">Old README</p>
+
+---
+
+
 # ASL X-Plane 11 Simulator
 Based on the popular X-Plane 11 aircraft simulator, we present a convenient Python-based simulation platform to test and benchmark the performance of perception and control algorithms when they experience Out-of-Distribution scenarios in closed-loop. This platform is refactored from the original [NASA-ULI-Xplane repo](https://github.com/StanfordASL/NASA_ULI_Xplane_Simulator/tree/main) to expand functionality, improve code quality, readability, and modularity. We offer photo-realistic graphics and accurate physics simulation Currently, the simulator offers a single control task: Vision-based autonomous taxiing. 
 
