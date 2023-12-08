@@ -1,3 +1,0 @@
-git+https://github.com/rdyro/dashing.git
-git+https://github.com/rdyro/jfi-JAXFriendlyInterface.git
-git+https://github.com/StanfordASL/pmpc.git
